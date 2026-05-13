@@ -64,7 +64,10 @@ export function LandingPage() {
           >
             Launch dashboard <ArrowRight className="h-4 w-4" />
           </Link>
-          <button className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-border hover:bg-surface-2/60 font-semibold">
+          <button
+            onClick={() => document.getElementById("preview")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-border hover:bg-surface-2/60 font-semibold"
+          >
             <PlayCircle className="h-4 w-4" /> Watch demo
           </button>
         </motion.div>
