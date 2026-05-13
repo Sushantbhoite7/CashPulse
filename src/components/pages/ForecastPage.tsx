@@ -1,6 +1,6 @@
 import { Card, CardHeader } from "@/components/dashboard/Primitives";
 import { cfoFcf } from "@/lib/mock-data";
-import { Area, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { AreaChart } from "@tremor/react";
 import { Sparkles, Copy, FileDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -22,6 +22,14 @@ export function ForecastPage() {
     return () => clearInterval(id);
   }, [streaming]);
 
+  const fcfData = cfoFcf.map((d: any) => ({
+    month: d.month,
+    P50: d.p50,
+    "P10–P90 band": d.p90 - d.p10,
+    base: d.p10,
+    Target: d.target,
+  }));
+
   return (
     <div className="px-4 md:px-6 py-6 space-y-6 max-w-[1500px] mx-auto">
       <div>
@@ -32,26 +40,20 @@ export function ForecastPage() {
       </div>
 
       <Card>
-        <CardHeader subtitle="Monthly · USD millions · P10 / P50 / P90 + board target" title="Free cash flow trajectory" />
-        <div className="h-[360px] px-2 pb-4">
-          <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={cfoFcf} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
-              <defs>
-                <linearGradient id="band2" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="oklch(0.74 0.16 220)" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="oklch(0.74 0.16 220)" stopOpacity={0.04} />
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="month" stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={{ stroke: "oklch(1 0 0 / 8%)" }} />
-              <YAxis stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
-              <Tooltip contentStyle={{ background: "oklch(0.22 0.035 250)", border: "1px solid oklch(1 0 0 / 10%)", borderRadius: 8, fontSize: 12 }} />
-              <Area type="monotone" dataKey="p90" stroke="none" fill="url(#band2)" />
-              <Area type="monotone" dataKey="p10" stroke="none" fill="oklch(0.18 0.03 250)" />
-              <Line type="monotone" dataKey="p50" stroke="oklch(0.78 0.15 200)" strokeWidth={2} dot={false} />
-              <ReferenceLine y={0} stroke="oklch(1 0 0 / 10%)" />
-              <Line type="monotone" dataKey="target" stroke="oklch(0.78 0.15 70)" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
-            </ComposedChart>
-          </ResponsiveContainer>
+        <CardHeader subtitle="Monthly · USD millions · P10 / P50 / P90 + board target · Tremor" title="Free cash flow trajectory" />
+        <div className="px-4 pb-4">
+          <AreaChart
+            className="h-[360px]"
+            data={fcfData}
+            index="month"
+            categories={["P50", "P10–P90 band", "Target"]}
+            colors={["cyan", "blue", "amber"]}
+            valueFormatter={(v) => `$${v}M`}
+            showLegend
+            showGridLines={false}
+            yAxisWidth={60}
+            curveType="monotone"
+          />
         </div>
       </Card>
 
