@@ -16,6 +16,7 @@ import { Route as AppScenariosRouteImport } from './routes/app.scenarios'
 import { Route as AppLineageRouteImport } from './routes/app.lineage'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
 import { Route as AppDriversRouteImport } from './routes/app.drivers'
+import { Route as AppConnectorsRouteImport } from './routes/app.connectors'
 
 const AppRoute = AppRouteImport.update({
   id: '/app',
@@ -52,10 +53,16 @@ const AppDriversRoute = AppDriversRouteImport.update({
   path: '/drivers',
   getParentRoute: () => AppRoute,
 } as any)
+const AppConnectorsRoute = AppConnectorsRouteImport.update({
+  id: '/connectors',
+  path: '/connectors',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/connectors': typeof AppConnectorsRoute
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/lineage': typeof AppLineageRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/connectors': typeof AppConnectorsRoute
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/lineage': typeof AppLineageRoute
@@ -74,6 +82,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/connectors': typeof AppConnectorsRoute
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
   '/app/lineage': typeof AppLineageRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/app/connectors'
     | '/app/drivers'
     | '/app/forecast'
     | '/app/lineage'
@@ -93,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/app/connectors'
     | '/app/drivers'
     | '/app/forecast'
     | '/app/lineage'
@@ -102,6 +113,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/app/connectors'
     | '/app/drivers'
     | '/app/forecast'
     | '/app/lineage'
@@ -165,10 +177,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDriversRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/connectors': {
+      id: '/app/connectors'
+      path: '/connectors'
+      fullPath: '/app/connectors'
+      preLoaderRoute: typeof AppConnectorsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppConnectorsRoute: typeof AppConnectorsRoute
   AppDriversRoute: typeof AppDriversRoute
   AppForecastRoute: typeof AppForecastRoute
   AppLineageRoute: typeof AppLineageRoute
@@ -177,6 +197,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppConnectorsRoute: AppConnectorsRoute,
   AppDriversRoute: AppDriversRoute,
   AppForecastRoute: AppForecastRoute,
   AppLineageRoute: AppLineageRoute,
