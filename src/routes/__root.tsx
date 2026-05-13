@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { AppProvider } from "@/lib/store";
 
 import appCss from "../styles.css?url";
 
@@ -72,14 +73,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "CashPulse — Treasury Intelligence" },
+      { name: "description", content: "AI-powered cashflow forecasting with enterprise governance" },
+      { name: "author", content: "CashPulse" },
+      { property: "og:title", content: "CashPulse — Treasury Intelligence" },
+      { property: "og:description", content: "AI-powered cashflow forecasting with enterprise governance" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -113,7 +113,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <AppProvider>
+        <Outlet />
+      </AppProvider>
     </QueryClientProvider>
   );
 }
