@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Plug, Sparkles, ShieldCheck, PlayCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function LandingPage() {
   return (
@@ -13,12 +14,15 @@ export function LandingPage() {
           <span className="font-semibold tracking-tight">CashPulse</span>
           <span className="text-[10px] uppercase tracking-widest text-muted-foreground ml-1">Syngenta</span>
         </div>
-        <Link
-          to="/app"
-          className="text-xs font-semibold px-3 py-1.5 rounded-md border border-border hover:bg-surface-2/60"
-        >
-          Launch dashboard →
-        </Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Link
+            to="/app"
+            className="text-xs font-semibold px-3 py-1.5 rounded-md border border-border hover:bg-surface-2/60"
+          >
+            Launch dashboard →
+          </Link>
+        </div>
       </header>
 
       <section className="px-6 md:px-10 pt-20 pb-32 max-w-[1200px] mx-auto text-center">
