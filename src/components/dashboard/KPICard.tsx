@@ -1,6 +1,5 @@
-import { Card, Delta, StatusDot } from "./Primitives";
 import { sparkline } from "@/lib/mock-data";
-import { SparkAreaChart } from "@tremor/react";
+import { Card, Metric, Text, Flex, BadgeDelta, SparkAreaChart, type DeltaType } from "@tremor/react";
 import { useMemo } from "react";
 
 interface KPI {
@@ -26,28 +25,36 @@ function KPICard({ kpi, seed }: { kpi: KPI; seed: number }) {
   const data = useMemo(() => sparkline(13, 100 + seed * 5, 6 + seed), [seed]);
   const color =
     kpi.tone === "danger" ? "red" : kpi.tone === "warning" ? "amber" : kpi.tone === "success" ? "emerald" : "cyan";
+
+  let deltaType: DeltaType = "unchanged";
+  if (kpi.delta !== undefined) {
+    if (kpi.delta > 1) deltaType = "moderateIncrease";
+    else if (kpi.delta > 0) deltaType = "increase";
+    else if (kpi.delta < -1) deltaType = "moderateDecrease";
+    else if (kpi.delta < 0) deltaType = "decrease";
+  }
+
   return (
-    <Card glow={kpi.tone} className="overflow-hidden">
-      <div className="px-5 pt-5 pb-3 flex items-start justify-between gap-3">
+    <Card className="dark:bg-zinc-900 dark:border-zinc-800 dark:ring-0 hover:-translate-y-0.5 transition-transform duration-200">
+      <Flex alignItems="start">
         <div className="min-w-0">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-            {kpi.status && <StatusDot tone={kpi.status} />}
-            {kpi.label}
-          </div>
-          <div className="mt-2 flex items-baseline gap-2">
-            <div className="text-3xl font-semibold tracking-tight">{kpi.value}</div>
-            {kpi.delta !== undefined && <Delta value={kpi.delta} />}
-          </div>
-          {kpi.caption && <div className="text-xs text-muted-foreground mt-1">{kpi.caption}</div>}
+          <Text className="dark:text-zinc-400 uppercase tracking-wider text-xs">{kpi.label}</Text>
+          <Metric className="dark:text-white mt-1">{kpi.value}</Metric>
+          {kpi.caption && <Text className="dark:text-zinc-500 text-xs mt-1">{kpi.caption}</Text>}
         </div>
-        <SparkAreaChart
-          data={data}
-          categories={["y"]}
-          index="x"
-          colors={[color]}
-          className="h-12 w-24 shrink-0"
-        />
-      </div>
+        {kpi.delta !== undefined && (
+          <BadgeDelta deltaType={deltaType} size="xs">
+            {Math.abs(kpi.delta).toFixed(1)}%
+          </BadgeDelta>
+        )}
+      </Flex>
+      <SparkAreaChart
+        data={data}
+        categories={["y"]}
+        index="x"
+        colors={[color]}
+        className="mt-4 h-10 w-full"
+      />
     </Card>
   );
 }
