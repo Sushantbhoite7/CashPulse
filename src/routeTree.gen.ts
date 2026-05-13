@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppScenariosRouteImport } from './routes/app.scenarios'
 import { Route as AppLineageRouteImport } from './routes/app.lineage'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
@@ -31,6 +32,11 @@ const IndexRoute = IndexRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
 const AppScenariosRoute = AppScenariosRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/app/forecast': typeof AppForecastRoute
   '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/app/forecast': typeof AppForecastRoute
   '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/app/forecast': typeof AppForecastRoute
   '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/app/forecast'
     | '/app/lineage'
     | '/app/scenarios'
+    | '/app/settings'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/app/forecast'
     | '/app/lineage'
     | '/app/scenarios'
+    | '/app/settings'
     | '/app'
   id:
     | '__root__'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/app/forecast'
     | '/app/lineage'
     | '/app/scenarios'
+    | '/app/settings'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -147,6 +159,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/scenarios': {
@@ -193,6 +212,7 @@ interface AppRouteChildren {
   AppForecastRoute: typeof AppForecastRoute
   AppLineageRoute: typeof AppLineageRoute
   AppScenariosRoute: typeof AppScenariosRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
@@ -202,6 +222,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppForecastRoute: AppForecastRoute,
   AppLineageRoute: AppLineageRoute,
   AppScenariosRoute: AppScenariosRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
