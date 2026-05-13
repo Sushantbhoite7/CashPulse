@@ -13,6 +13,7 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppScenariosRouteImport } from './routes/app.scenarios'
+import { Route as AppLineageRouteImport } from './routes/app.lineage'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
 import { Route as AppDriversRouteImport } from './routes/app.drivers'
 
@@ -36,6 +37,11 @@ const AppScenariosRoute = AppScenariosRouteImport.update({
   path: '/scenarios',
   getParentRoute: () => AppRoute,
 } as any)
+const AppLineageRoute = AppLineageRouteImport.update({
+  id: '/lineage',
+  path: '/lineage',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppForecastRoute = AppForecastRouteImport.update({
   id: '/forecast',
   path: '/forecast',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
   '/app/': typeof AppIndexRoute
 }
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
   '/app': typeof AppIndexRoute
 }
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
   '/app/': typeof AppIndexRoute
 }
@@ -78,16 +87,24 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/drivers'
     | '/app/forecast'
+    | '/app/lineage'
     | '/app/scenarios'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/drivers' | '/app/forecast' | '/app/scenarios' | '/app'
+  to:
+    | '/'
+    | '/app/drivers'
+    | '/app/forecast'
+    | '/app/lineage'
+    | '/app/scenarios'
+    | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/app/drivers'
     | '/app/forecast'
+    | '/app/lineage'
     | '/app/scenarios'
     | '/app/'
   fileRoutesById: FileRoutesById
@@ -127,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppScenariosRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/lineage': {
+      id: '/app/lineage'
+      path: '/lineage'
+      fullPath: '/app/lineage'
+      preLoaderRoute: typeof AppLineageRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/forecast': {
       id: '/app/forecast'
       path: '/forecast'
@@ -147,6 +171,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppDriversRoute: typeof AppDriversRoute
   AppForecastRoute: typeof AppForecastRoute
+  AppLineageRoute: typeof AppLineageRoute
   AppScenariosRoute: typeof AppScenariosRoute
   AppIndexRoute: typeof AppIndexRoute
 }
@@ -154,6 +179,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppDriversRoute: AppDriversRoute,
   AppForecastRoute: AppForecastRoute,
+  AppLineageRoute: AppLineageRoute,
   AppScenariosRoute: AppScenariosRoute,
   AppIndexRoute: AppIndexRoute,
 }
