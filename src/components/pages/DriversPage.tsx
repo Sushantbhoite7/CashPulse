@@ -1,6 +1,7 @@
-import { Card, Title, Text, AreaChart, Button, Metric, Flex } from "@tremor/react";
+import { Card, CardHeader } from "@/components/dashboard/Primitives";
 import { drivers as initialDrivers } from "@/lib/mock-data";
 import { useState, useMemo } from "react";
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Save, RefreshCw } from "lucide-react";
 
 export function DriversPage() {
@@ -10,8 +11,8 @@ export function DriversPage() {
   const series = useMemo(() => {
     const shock = drivers.reduce((acc, d) => acc + (d.value / d.max), 0) / drivers.length;
     return Array.from({ length: 18 }, (_, i) => ({
-      month: `M${i + 1}`,
-      FCF: Math.round(240 + i * 14 * shock + Math.sin(i / 2) * 10),
+      m: i + 1,
+      v: Math.round(240 + i * 14 * shock + Math.sin(i / 2) * 10),
     }));
   }, [drivers]);
 
@@ -30,20 +31,18 @@ export function DriversPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
-        <Card className="dark:bg-zinc-900 dark:border-zinc-800 dark:ring-0">
-          <Flex alignItems="start">
-            <div>
-              <Text className="dark:text-zinc-400 uppercase tracking-wider text-xs">Base FY26</Text>
-              <Title className="dark:text-white mt-1">Macro & operational</Title>
-            </div>
-            <Button icon={Save} size="xs" variant="secondary">Save</Button>
-          </Flex>
-          <div className="mt-5 space-y-5">
+        <Card>
+          <CardHeader subtitle="Base FY26" title="Macro & operational" right={
+            <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5">
+              <Save className="h-3 w-3" /> Save scenario
+            </button>
+          } />
+          <div className="px-5 pb-5 space-y-5">
             {drivers.map((d) => (
               <div key={d.id}>
                 <div className="flex items-baseline justify-between text-sm">
-                  <label className="dark:text-zinc-400">{d.label}</label>
-                  <span className="tabular-nums font-semibold text-cyan-400">{d.value}</span>
+                  <label className="text-muted-foreground">{d.label}</label>
+                  <span className="tabular-nums font-semibold text-teal">{d.value}</span>
                 </div>
                 <input
                   type="range"
@@ -52,9 +51,9 @@ export function DriversPage() {
                   step={d.step}
                   value={d.value}
                   onChange={(e) => update(d.id, parseFloat(e.target.value))}
-                  className="w-full mt-2 accent-cyan-500"
+                  className="w-full mt-2 accent-teal"
                 />
-                <div className="flex justify-between text-[10px] dark:text-zinc-500 mt-1">
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
                   <span>{d.min}</span><span>{d.max}</span>
                 </div>
               </div>
@@ -62,31 +61,31 @@ export function DriversPage() {
           </div>
         </Card>
 
-        <Card className="dark:bg-zinc-900 dark:border-zinc-800 dark:ring-0">
-          <Flex alignItems="start">
-            <div>
-              <Text className="dark:text-zinc-400 uppercase tracking-wider text-xs">Recomputed in real time</Text>
-              <Title className="dark:text-white mt-1">FCF projection · 18 months</Title>
-            </div>
-            {recomputing && (
-              <span className="inline-flex items-center gap-1.5 text-[11px] text-cyan-400">
+        <Card>
+          <CardHeader subtitle="Recomputed in real time" title="FCF projection · 18 months" right={
+            recomputing ? (
+              <span className="inline-flex items-center gap-1.5 text-[11px] text-teal">
                 <RefreshCw className="h-3 w-3 animate-spin" /> Recomputing
               </span>
-            )}
-          </Flex>
-          <AreaChart
-            className="h-72 mt-4"
-            data={series}
-            index="month"
-            categories={["FCF"]}
-            colors={["cyan"]}
-            valueFormatter={(v) => `$${v}M`}
-            showLegend={false}
-            showGridLines={false}
-            yAxisWidth={56}
-            curveType="monotone"
-          />
-          <div className="mt-4 grid grid-cols-3 gap-3">
+            ) : null
+          } />
+          <div className="h-[300px] px-2 pb-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={series} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="dgrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="oklch(0.78 0.15 200)" stopOpacity={0.5} />
+                    <stop offset="100%" stopColor="oklch(0.78 0.15 200)" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="m" stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
+                <YAxis stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
+                <Tooltip contentStyle={{ background: "oklch(0.22 0.035 250)", border: "1px solid oklch(1 0 0 / 10%)", borderRadius: 8, fontSize: 12 }} />
+                <Area type="monotone" dataKey="v" stroke="oklch(0.78 0.15 200)" strokeWidth={2} fill="url(#dgrad)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="px-5 pb-5 grid grid-cols-3 gap-3 text-center">
             <Stat label="FY FCF" value="$1.84B" />
             <Stat label="vs base" value="−4.2%" tone="warning" />
             <Stat label="Confidence" value="P50" />
@@ -99,9 +98,9 @@ export function DriversPage() {
 
 function Stat({ label, value, tone }: { label: string; value: string; tone?: string }) {
   return (
-    <div className="rounded-lg border dark:border-zinc-800 dark:bg-zinc-950/50 px-3 py-2">
-      <Text className="dark:text-zinc-500 uppercase tracking-wider text-[10px]">{label}</Text>
-      <Metric className={`text-lg ${tone === "warning" ? "text-amber-400" : "dark:text-white"}`}>{value}</Metric>
+    <div className="rounded-lg border border-border bg-surface/40 px-3 py-2">
+      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
+      <div className={`text-lg font-semibold ${tone === "warning" ? "text-warning" : ""}`}>{value}</div>
     </div>
   );
 }

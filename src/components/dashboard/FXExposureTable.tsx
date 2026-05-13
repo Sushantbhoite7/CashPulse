@@ -1,49 +1,55 @@
-import { Card, Title, Text, Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell, Badge, BadgeDelta, ProgressBar } from "@tremor/react";
+import { Card, CardHeader } from "./Primitives";
 import { fxExposure } from "@/lib/mock-data";
 
 export function FXExposureTable() {
   return (
-    <Card className="dark:bg-zinc-900 dark:border-zinc-800 dark:ring-0">
-      <Text className="dark:text-zinc-400 uppercase tracking-wider text-xs">Net positions · USD millions</Text>
-      <Title className="dark:text-white mt-1">FX exposure</Title>
-      <Table className="mt-4">
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell className="dark:text-zinc-400">Pair</TableHeaderCell>
-            <TableHeaderCell className="dark:text-zinc-400 text-right">Net</TableHeaderCell>
-            <TableHeaderCell className="dark:text-zinc-400 text-right">VaR 95%</TableHeaderCell>
-            <TableHeaderCell className="dark:text-zinc-400">Hedge</TableHeaderCell>
-            <TableHeaderCell className="dark:text-zinc-400 text-right">Action</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {fxExposure.map((r) => {
-            const color = r.risk === "danger" ? "red" : r.risk === "warning" ? "amber" : "emerald";
-            return (
-              <TableRow key={r.pair}>
-                <TableCell className="dark:text-white font-medium">{r.pair}</TableCell>
-                <TableCell className="text-right">
-                  <BadgeDelta deltaType={r.net >= 0 ? "increase" : "decrease"} size="xs">
+    <Card>
+      <CardHeader subtitle="Net positions · USD millions" title="FX exposure" />
+      <div className="px-2 pb-3">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-[10px] uppercase tracking-wider text-muted-foreground">
+              <th className="text-left font-medium px-3 py-2">Pair</th>
+              <th className="text-right font-medium px-3 py-2">Net</th>
+              <th className="text-right font-medium px-3 py-2">VaR 95%</th>
+              <th className="text-right font-medium px-3 py-2">Hedge</th>
+              <th className="text-right font-medium px-3 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fxExposure.map((r) => {
+              const tone =
+                r.risk === "danger"
+                  ? "text-destructive bg-destructive/10"
+                  : r.risk === "warning"
+                  ? "text-warning bg-warning/10"
+                  : "text-success bg-success/10";
+              return (
+                <tr key={r.pair} className="border-t border-border/60 hover:bg-surface-2/40">
+                  <td className="px-3 py-2.5 font-medium">{r.pair}</td>
+                  <td className={`px-3 py-2.5 text-right tabular-nums ${r.net < 0 ? "text-destructive" : "text-success"}`}>
                     {r.net > 0 ? "+" : ""}{r.net}
-                  </BadgeDelta>
-                </TableCell>
-                <TableCell className="dark:text-zinc-300 text-right tabular-nums">{r.var95}</TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <ProgressBar value={r.hedge * 100} color="cyan" className="w-20" />
-                    <span className="text-xs tabular-nums dark:text-zinc-400">{Math.round(r.hedge * 100)}%</span>
-                  </div>
-                </TableCell>
-                <TableCell className="text-right">
-                  <Badge color={color}>
-                    {r.risk === "danger" ? "Hedge ↑" : r.risk === "warning" ? "Review" : "Hold"}
-                  </Badge>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                  </td>
+                  <td className="px-3 py-2.5 text-right tabular-nums text-muted-foreground">{r.var95}</td>
+                  <td className="px-3 py-2.5 text-right">
+                    <div className="ml-auto inline-flex items-center gap-2">
+                      <div className="h-1.5 w-16 rounded-full bg-muted overflow-hidden">
+                        <div className="h-full bg-teal" style={{ width: `${r.hedge * 100}%` }} />
+                      </div>
+                      <span className="tabular-nums text-xs text-muted-foreground">{Math.round(r.hedge * 100)}%</span>
+                    </div>
+                  </td>
+                  <td className="px-3 py-2.5 text-right">
+                    <span className={`text-[10px] uppercase tracking-wider px-2 py-1 rounded-md font-semibold ${tone}`}>
+                      {r.risk === "danger" ? "Hedge ↑" : r.risk === "warning" ? "Review" : "Hold"}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </Card>
   );
 }
