@@ -69,9 +69,9 @@ export const alerts = [
 ];
 
 export const cfoFcf = (() => {
-  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun"];
+  const labels = ["Jan '26","Feb '26","Mar '26","Apr '26","May '26","Jun '26","Jul '26","Aug '26","Sep '26","Oct '26","Nov '26","Dec '26","Jan '27","Feb '27","Mar '27","Apr '27","May '27","Jun '27"];
   let v = 240;
-  return months.map((m, i) => {
+  return labels.map((m, i) => {
     v += 18 + Math.sin(i / 2) * 14 + (Math.random() - 0.5) * 8;
     const spread = 30 + i * 2;
     return {
