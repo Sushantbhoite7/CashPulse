@@ -5,14 +5,14 @@ import {
 } from "lucide-react";
 
 const items = [
-  { to: "/", icon: LayoutDashboard, label: "Dashboard" },
-  { to: "/forecast", icon: TrendingUp, label: "Forecast" },
-  { to: "/scenarios", icon: GitBranch, label: "Scenarios" },
-  { to: "/drivers", icon: Sliders, label: "Drivers" },
-  { to: "/lineage", icon: Network, label: "Lineage" },
-  { to: "/governance", icon: ShieldCheck, label: "Governance" },
-  { to: "/connectors", icon: Plug, label: "Connectors" },
-  { to: "/settings", icon: Settings, label: "Settings" },
+  { to: "/app", icon: LayoutDashboard, label: "Dashboard" },
+  { to: "/app/forecast", icon: TrendingUp, label: "Forecast" },
+  { to: "/app/scenarios", icon: GitBranch, label: "Scenarios" },
+  { to: "/app/drivers", icon: Sliders, label: "Drivers" },
+  { to: "/app/lineage", icon: Network, label: "Lineage" },
+  { to: "/app/lineage", icon: ShieldCheck, label: "Governance" },
+  { to: "/app/connectors", icon: Plug, label: "Connectors" },
+  { to: "/app/settings", icon: Settings, label: "Settings" },
 ];
 
 export function Sidebar() {
@@ -30,7 +30,7 @@ export function Sidebar() {
       </div>
       <nav className="flex-1 px-3 py-2 space-y-1">
         {items.map(({ to, icon: Icon, label }) => {
-          const active = to === "/" ? pathname === "/" : pathname.startsWith(to);
+          const active = to === "/app" ? pathname === "/app" : pathname.startsWith(to);
           return (
             <Link
               key={to}
