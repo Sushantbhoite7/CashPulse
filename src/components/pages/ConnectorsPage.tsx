@@ -1,8 +1,24 @@
 import { Card, CardHeader } from "@/components/dashboard/Primitives";
 import { connectors } from "@/lib/mock-data";
 import { CheckCircle2, Clock, Plus, UploadCloud } from "lucide-react";
+import { Tracker, Badge } from "@tremor/react";
+import { useMemo } from "react";
+
+function generateTrackerData(uptime: number) {
+  const seed = uptime * 100;
+  return Array.from({ length: 30 }, (_, i) => {
+    const hash = Math.sin(seed + i * 7.3) * 10000;
+    const ok = (hash - Math.floor(hash)) > (uptime < 100 ? 0.05 : 0.005);
+    return { color: ok ? "emerald" : "red", tooltip: `Day ${i + 1}` } as const;
+  });
+}
 
 export function ConnectorsPage() {
+  const trackerDataMap = useMemo(
+    () => Object.fromEntries(connectors.map((c) => [c.name, generateTrackerData(c.uptime)])),
+    []
+  );
+
   return (
     <div className="px-4 md:px-6 py-6 space-y-6 max-w-[1500px] mx-auto">
       <div>
@@ -18,15 +34,9 @@ export function ConnectorsPage() {
                 <div className="text-sm font-semibold">{c.name}</div>
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-0.5">{c.records} records</div>
               </div>
-              {c.status === "connected" ? (
-                <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider px-2 py-1 rounded-md bg-success/15 text-success font-semibold">
-                  <CheckCircle2 className="h-3 w-3" /> Connected
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider px-2 py-1 rounded-md bg-warning/15 text-warning font-semibold">
-                  <Clock className="h-3 w-3" /> Pending
-                </span>
-              )}
+              <Badge color={c.status === "connected" ? "emerald" : "amber"} size="sm">
+                {c.status === "connected" ? "Connected" : "Pending"}
+              </Badge>
             </div>
             <div className="mt-4 flex items-end justify-between">
               <div>
@@ -38,12 +48,7 @@ export function ConnectorsPage() {
                 <div className="text-sm font-medium tabular-nums text-teal">{c.uptime}%</div>
               </div>
             </div>
-            <div className="mt-3 flex gap-1">
-              {Array.from({ length: 30 }).map((_, i) => {
-                const ok = Math.random() > (c.uptime < 100 ? 0.05 : 0.005);
-                return <div key={i} className={`h-3 w-1.5 rounded-sm ${ok ? "bg-success/70" : "bg-destructive/80"}`} />;
-              })}
-            </div>
+            <Tracker data={trackerDataMap[c.name]} className="mt-3" />
             <button className="mt-4 w-full text-xs px-3 py-1.5 rounded-md border border-border hover:bg-surface-2/60">Test connection</button>
           </Card>
         ))}

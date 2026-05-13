@@ -3,6 +3,7 @@ import { cfoFcf } from "@/lib/mock-data";
 import { Area, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Sparkles, Copy, FileDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import { DonutChart, Legend } from "@tremor/react";
 
 const narrative =
   "Q3 free cash flow came in $42M above plan, driven primarily by stronger-than-expected AR collections in LATAM [+$28M], linked to corn price strength. This was partially offset by elevated active-ingredient costs in Crop Protection [-$11M], correlated with the natural gas spike in mid-August. Working capital normalized within target bands across EMEA and APAC. Looking forward, the base case for FY26 holds revenue at $14.2B with EBITDA margin at 22.4%, leaving covenant headroom comfortably at 2.8×.";
@@ -85,43 +86,52 @@ export function ForecastPage() {
       <div className="grid lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader subtitle="Base case" title="FY26 segment contribution" />
-          <SegmentBars segments={[
-            { name: "Crop Protection", v: 7800 },
-            { name: "Seeds", v: 4200 },
-            { name: "Other", v: 2200 },
-          ]} />
+          <div className="px-5 pb-5 flex flex-col items-center">
+            <DonutChart
+              data={[
+                { name: "Crop Protection", value: 7800 },
+                { name: "Seeds", value: 4200 },
+                { name: "Other", value: 2200 },
+              ]}
+              category="value"
+              index="name"
+              colors={["cyan", "violet", "slate"]}
+              className="h-40"
+              valueFormatter={(v) => `$${v.toLocaleString()}M`}
+            />
+            <Legend
+              categories={["Crop Protection", "Seeds", "Other"]}
+              colors={["cyan", "violet", "slate"]}
+              className="mt-3"
+            />
+          </div>
         </Card>
         <Card>
           <CardHeader subtitle="Downside scenario" title="FY26 segment contribution" />
-          <SegmentBars segments={[
-            { name: "Crop Protection", v: 7100 },
-            { name: "Seeds", v: 3900 },
-            { name: "Other", v: 2020 },
-          ]} />
+          <div className="px-5 pb-5 flex flex-col items-center">
+            <DonutChart
+              data={[
+                { name: "Crop Protection", value: 7100 },
+                { name: "Seeds", value: 3900 },
+                { name: "Other", value: 2020 },
+              ]}
+              category="value"
+              index="name"
+              colors={["cyan", "violet", "slate"]}
+              className="h-40"
+              valueFormatter={(v) => `$${v.toLocaleString()}M`}
+            />
+            <Legend
+              categories={["Crop Protection", "Seeds", "Other"]}
+              colors={["cyan", "violet", "slate"]}
+              className="mt-3"
+            />
+          </div>
           <div className="px-5 pb-5 text-xs text-muted-foreground">
             Δ vs base: <span className="text-destructive font-semibold">−$180M FCF</span>, primarily LATAM AR delay.
           </div>
         </Card>
       </div>
-    </div>
-  );
-}
-
-function SegmentBars({ segments }: { segments: { name: string; v: number }[] }) {
-  const max = Math.max(...segments.map((s) => s.v));
-  return (
-    <div className="px-5 pb-4 space-y-3">
-      {segments.map((s) => (
-        <div key={s.name}>
-          <div className="flex justify-between text-xs">
-            <span>{s.name}</span>
-            <span className="tabular-nums text-muted-foreground">${s.v.toLocaleString()}M</span>
-          </div>
-          <div className="mt-1 h-2 rounded-full bg-muted overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-teal to-cyan" style={{ width: `${(s.v / max) * 100}%` }} />
-          </div>
-        </div>
-      ))}
     </div>
   );
 }

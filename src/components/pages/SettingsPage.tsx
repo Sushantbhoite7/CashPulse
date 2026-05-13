@@ -13,9 +13,9 @@ export function SettingsPage() {
           <CardHeader subtitle="Profile" title="Account" />
           <div className="px-5 pb-5 space-y-3 text-sm">
             <Row label="Name" value="Sarah Patel" />
-            <Row label="Email" value="s.patel@syngenta.com" />
+            <Row label="Email" value="s.patel@cashpulse.io" />
             <Row label="Role" value="Treasurer" />
-            <Row label="Tenant" value="syngenta-prod" />
+            <Row label="Tenant" value="cashpulse-prod" />
           </div>
         </Card>
         <Card>

@@ -1,6 +1,6 @@
-// SYNGENTA-UPDATE
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Persona } from "./mock-data";
+import { useTheme } from "@/components/ThemeToggle";
 
 type Theme = "dark" | "light";
 
@@ -21,19 +21,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [persona, setPersona] = useState<Persona>("treasurer");
   const [scenario, setScenario] = useState("Base FY26");
   const [chatOpen, setChatOpen] = useState(false);
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "dark";
-    return (localStorage.getItem("cp-theme") as Theme) || "dark";
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle("dark", theme === "dark");
-    root.classList.toggle("light", theme === "light");
-    try { localStorage.setItem("cp-theme", theme); } catch {}
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <Ctx.Provider value={{ persona, setPersona, scenario, setScenario, chatOpen, setChatOpen, theme, toggleTheme }}>

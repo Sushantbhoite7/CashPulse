@@ -25,7 +25,7 @@ export function Sidebar() {
         </div>
         <div>
           <div className="text-sm font-semibold tracking-tight">CashPulse</div>
-          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Syngenta</div>
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Treasury AI</div>
         </div>
       </div>
       <nav className="flex-1 px-3 py-2 space-y-1">

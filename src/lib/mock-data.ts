@@ -100,10 +100,10 @@ export const scenarios = [
 ];
 
 export const auditLog = [
-  { ts: "2026-05-13 09:42", user: "s.patel@syngenta.com", action: "Override", entity: "LATAM Q3 forecast", details: "+5% vs model" },
-  { ts: "2026-05-13 08:15", user: "m.costa@syngenta.com", action: "Scenario created", entity: "El Niño Stress", details: "Branched from Base FY26" },
+  { ts: "2026-05-13 09:42", user: "s.patel@cashpulse.io", action: "Override", entity: "LATAM Q3 forecast", details: "+5% vs model" },
+  { ts: "2026-05-13 08:15", user: "m.costa@cashpulse.io", action: "Scenario created", entity: "El Niño Stress", details: "Branched from Base FY26" },
   { ts: "2026-05-12 17:01", user: "system", action: "Model retrained", entity: "LightGBM Ensemble v42", details: "WAPE 4.2%" },
-  { ts: "2026-05-12 14:30", user: "r.chen@syngenta.com", action: "Approved", entity: "Base FY26", details: "Sign-off for board pack" },
+  { ts: "2026-05-12 14:30", user: "r.chen@cashpulse.io", action: "Approved", entity: "Base FY26", details: "Sign-off for board pack" },
 ];
 
 export const connectors = [

@@ -16,7 +16,7 @@ export function ComplianceRibbon() {
             <Icon className="h-3 w-3 text-teal" /> {label}
           </span>
         ))}
-        <span className="ml-auto">© 2026 Syngenta Group · CashPulse</span>
+        <span className="ml-auto">© 2026 CashPulse</span>
       </div>
     </footer>
   );

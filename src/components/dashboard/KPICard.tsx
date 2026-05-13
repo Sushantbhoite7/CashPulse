@@ -1,6 +1,6 @@
-import { Card, CardHeader, Delta, StatusDot } from "./Primitives";
+import { Card, CardHeader, StatusDot } from "./Primitives";
 import { sparkline } from "@/lib/mock-data";
-import { Area, AreaChart, ResponsiveContainer } from "recharts";
+import { SparkAreaChart, BadgeDelta } from "@tremor/react";
 import { useMemo } from "react";
 
 interface KPI {
@@ -22,6 +22,14 @@ export function KPIRow({ items }: { items: KPI[] }) {
   );
 }
 
+function getDeltaType(value: number): "moderateIncrease" | "increase" | "unchanged" | "decrease" | "moderateDecrease" {
+  if (value > 5) return "moderateIncrease";
+  if (value > 0) return "increase";
+  if (value === 0) return "unchanged";
+  if (value > -5) return "decrease";
+  return "moderateDecrease";
+}
+
 function KPICard({ kpi, seed }: { kpi: KPI; seed: number }) {
   const data = useMemo(() => sparkline(13, 100 + seed * 5, 6 + seed), [seed]);
   return (
@@ -33,28 +41,22 @@ function KPICard({ kpi, seed }: { kpi: KPI; seed: number }) {
         </div>
         <div className="mt-2 flex items-baseline gap-2">
           <div className="text-3xl font-semibold tracking-tight">{kpi.value}</div>
-          {kpi.delta !== undefined && <Delta value={kpi.delta} />}
+          {kpi.delta !== undefined && (
+            <BadgeDelta deltaType={getDeltaType(kpi.delta)} size="sm">
+              {Math.abs(kpi.delta).toFixed(1)}%
+            </BadgeDelta>
+          )}
         </div>
         {kpi.caption && <div className="text-xs text-muted-foreground mt-1">{kpi.caption}</div>}
       </div>
-      <div className="h-14 -mt-1">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
-            <defs>
-              <linearGradient id={`spk-${seed}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="oklch(0.78 0.15 200)" stopOpacity={0.6} />
-                <stop offset="100%" stopColor="oklch(0.78 0.15 200)" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <Area
-              type="monotone"
-              dataKey="y"
-              stroke="oklch(0.78 0.15 200)"
-              strokeWidth={1.6}
-              fill={`url(#spk-${seed})`}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+      <div className="h-14 -mt-1 px-1">
+        <SparkAreaChart
+          data={data}
+          categories={["y"]}
+          index="x"
+          colors={["cyan"]}
+          className="h-14 w-full"
+        />
       </div>
     </Card>
   );

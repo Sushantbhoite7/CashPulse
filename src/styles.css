@@ -1,5 +1,6 @@
 @import "tailwindcss" source(none);
 @source "../src";
+@source "../node_modules/@tremor/react/dist";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -141,4 +142,49 @@
   background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--teal) 20%, transparent), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s linear infinite;
+}
+
+/* Tremor dark mode overrides */
+.dark [class*="tremor"] {
+  --tremor-background-default: var(--card);
+  --tremor-background-muted: var(--surface);
+  --tremor-background-subtle: var(--surface-2);
+  --tremor-border-default: var(--border);
+  --tremor-content-default: var(--foreground);
+  --tremor-content-emphasis: var(--foreground);
+  --tremor-content-strong: var(--foreground);
+  --tremor-content-subtle: var(--muted-foreground);
+}
+.dark .tremor-Card-root {
+  background-color: var(--card);
+  border-color: var(--border);
+  box-shadow: var(--shadow-card);
+  --tw-ring-color: transparent;
+}
+.dark .tremor-TableHeaderCell-root {
+  color: var(--muted-foreground);
+}
+.dark .tremor-TableCell-root {
+  color: var(--foreground);
+}
+.dark .tremor-TableRow-root {
+  border-color: var(--border);
+}
+.dark .tremor-Metric-root {
+  color: var(--foreground);
+}
+.dark .tremor-Text-root {
+  color: var(--muted-foreground);
+}
+.dark .tremor-Callout-root {
+  border-color: var(--border);
+}
+.dark .tremor-BarList-bar {
+  background-color: var(--teal);
+}
+.dark .tremor-Tracker-root .bg-emerald-500 {
+  background-color: var(--success);
+}
+.dark .tremor-Badge-root {
+  border-color: var(--border);
 }

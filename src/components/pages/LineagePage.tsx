@@ -1,6 +1,10 @@
 import { Card, CardHeader } from "@/components/dashboard/Primitives";
 import { auditLog } from "@/lib/mock-data";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell,
+  Badge, ProgressBar,
+} from "@tremor/react";
 
 const lineage = [
   { name: "SAP S/4HANA", meta: "2.4M rows · 3 min ago", quality: 99.7 },
@@ -45,6 +49,7 @@ export function LineagePage() {
             <Field label="Type" value="LightGBM Ensemble" />
             <Field label="Last trained" value="2026-05-12 14:30 UTC" />
             <Field label="Backtest WAPE" value="4.2%" tone="success" />
+            <ProgressBar value={42} color="teal" className="mt-1" />
             <Field label="Backtest MAPE" value="6.1%" />
             <Field label="Approved by" value="R. Chen (Head of FP&A)" />
             <Field label="Status" value="Production ✓" tone="success" />
@@ -56,28 +61,30 @@ export function LineagePage() {
 
         <Card>
           <CardHeader subtitle="Last 50 actions" title="Audit log" />
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                <th className="text-left font-medium px-5 py-2">Timestamp</th>
-                <th className="text-left font-medium px-3 py-2">User</th>
-                <th className="text-left font-medium px-3 py-2">Action</th>
-                <th className="text-left font-medium px-3 py-2">Entity</th>
-                <th className="text-left font-medium px-5 py-2">Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {auditLog.map((r, i) => (
-                <tr key={i} className="border-t border-border/60">
-                  <td className="px-5 py-2.5 tabular-nums text-muted-foreground text-xs">{r.ts}</td>
-                  <td className="px-3 py-2.5 text-xs">{r.user}</td>
-                  <td className="px-3 py-2.5 text-xs"><span className="px-2 py-0.5 rounded bg-teal/10 text-teal text-[10px] font-semibold uppercase tracking-wider">{r.action}</span></td>
-                  <td className="px-3 py-2.5 text-xs">{r.entity}</td>
-                  <td className="px-5 py-2.5 text-xs text-muted-foreground">{r.details}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="px-2 pb-3">
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableHeaderCell>Timestamp</TableHeaderCell>
+                  <TableHeaderCell>User</TableHeaderCell>
+                  <TableHeaderCell>Action</TableHeaderCell>
+                  <TableHeaderCell>Entity</TableHeaderCell>
+                  <TableHeaderCell>Details</TableHeaderCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {auditLog.map((r, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="tabular-nums text-xs">{r.ts}</TableCell>
+                    <TableCell className="text-xs">{r.user}</TableCell>
+                    <TableCell><Badge color="cyan" size="sm">{r.action}</Badge></TableCell>
+                    <TableCell className="text-xs">{r.entity}</TableCell>
+                    <TableCell className="text-xs">{r.details}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </Card>
       </div>
     </div>

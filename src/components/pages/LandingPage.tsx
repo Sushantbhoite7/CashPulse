@@ -12,7 +12,7 @@ export function LandingPage() {
             <Sparkles className="h-4 w-4 text-primary-foreground" />
           </div>
           <span className="font-semibold tracking-tight">CashPulse</span>
-          <span className="text-[10px] uppercase tracking-widest text-muted-foreground ml-1">Syngenta</span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground ml-1">Treasury AI</span>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -143,7 +143,7 @@ export function LandingPage() {
       </section>
 
       <footer className="border-t border-border px-6 md:px-10 py-6 text-[11px] text-muted-foreground flex flex-wrap gap-3 justify-between">
-        <span>© 2026 Syngenta · CashPulse</span>
+        <span>© 2026 CashPulse</span>
         <span className="flex items-center gap-3">
           <span>🔒 SOC2 Type II</span>
           <span>🔒 AES-256</span>

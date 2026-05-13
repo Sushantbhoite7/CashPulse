@@ -2,6 +2,7 @@ import { Card, CardHeader } from "@/components/dashboard/Primitives";
 import { scenarios } from "@/lib/mock-data";
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { GitBranch, Plus, Share2 } from "lucide-react";
+import { Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell, Badge } from "@tremor/react";
 
 const compare = [
   { segment: "Crop Protection", base: 7800, downside: 7100, stress: 6700 },
@@ -44,37 +45,37 @@ export function ScenariosPage() {
 
       <Card>
         <CardHeader subtitle="Saved scenarios" title="Version history" />
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-[10px] uppercase tracking-wider text-muted-foreground">
-              <th className="text-left font-medium px-5 py-2">Name</th>
-              <th className="text-left font-medium px-3 py-2">Author</th>
-              <th className="text-left font-medium px-3 py-2">Date</th>
-              <th className="text-left font-medium px-3 py-2">Status</th>
-              <th className="text-right font-medium px-5 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {scenarios.map((s) => {
-              const tone =
-                s.status === "Approved" ? "bg-success/15 text-success" :
-                s.status === "Draft" ? "bg-warning/15 text-warning" : "bg-muted text-muted-foreground";
-              return (
-                <tr key={s.name} className="border-t border-border/60">
-                  <td className="px-5 py-3 font-medium">{s.name}</td>
-                  <td className="px-3 py-3 text-muted-foreground">{s.author}</td>
-                  <td className="px-3 py-3 text-muted-foreground tabular-nums">{s.date}</td>
-                  <td className="px-3 py-3"><span className={`text-[10px] uppercase tracking-wider px-2 py-1 rounded-md font-semibold ${tone}`}>{s.status}</span></td>
-                  <td className="px-5 py-3 text-right">
-                    <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5">
-                      <GitBranch className="h-3 w-3" /> Branch
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="px-2 pb-3">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell>Name</TableHeaderCell>
+                <TableHeaderCell>Author</TableHeaderCell>
+                <TableHeaderCell>Date</TableHeaderCell>
+                <TableHeaderCell>Status</TableHeaderCell>
+                <TableHeaderCell className="text-right">Actions</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {scenarios.map((s) => {
+                const badgeColor = s.status === "Approved" ? "emerald" : s.status === "Draft" ? "amber" : "gray";
+                return (
+                  <TableRow key={s.name}>
+                    <TableCell className="font-medium">{s.name}</TableCell>
+                    <TableCell>{s.author}</TableCell>
+                    <TableCell className="tabular-nums">{s.date}</TableCell>
+                    <TableCell><Badge color={badgeColor} size="sm">{s.status}</Badge></TableCell>
+                    <TableCell className="text-right">
+                      <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5">
+                        <GitBranch className="h-3 w-3" /> Branch
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </Card>
     </div>
   );

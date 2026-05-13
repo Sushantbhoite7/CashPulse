@@ -1,26 +1,47 @@
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 type Theme = "dark" | "light";
 
-export function ThemeToggle({ className = "" }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+const listeners = new Set<() => void>();
 
-  useEffect(() => {
-    const stored = (typeof window !== "undefined" && (localStorage.getItem("cp-theme") as Theme)) || "dark";
-    setTheme(stored);
-  }, []);
+function getTheme(): Theme {
+  if (typeof window === "undefined") return "dark";
+  return (localStorage.getItem("cp-theme") as Theme) || "dark";
+}
+
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  return () => listeners.delete(cb);
+}
+
+function setTheme(t: Theme) {
+  localStorage.setItem("cp-theme", t);
+  const root = document.documentElement;
+  root.classList.toggle("dark", t === "dark");
+  root.classList.toggle("light", t === "light");
+  listeners.forEach((cb) => cb());
+}
+
+export function useTheme() {
+  const theme = useSyncExternalStore(subscribe, getTheme, () => "dark" as Theme);
 
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     root.classList.toggle("light", theme === "light");
-    try { localStorage.setItem("cp-theme", theme); } catch {}
   }, [theme]);
+
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
+  return { theme, toggleTheme };
+}
+
+export function ThemeToggle({ className = "" }: { className?: string }) {
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
-      onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+      onClick={toggleTheme}
       aria-label="Toggle theme"
       className={`h-8 w-8 grid place-items-center rounded-lg border border-border hover:bg-surface-2/60 ${className}`}
     >
