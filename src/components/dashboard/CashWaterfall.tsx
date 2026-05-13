@@ -51,7 +51,7 @@ export function CashWaterfall() {
                 fontSize: 12,
               }}
               labelStyle={{ color: "oklch(0.7 0.02 250)" }}
-              formatter={(v: number, name: string) => [`$${(v / 1000).toFixed(2)}B`, name.toUpperCase()]}
+              formatter={(v: any, name: any) => [`$${(Number(v) / 1000).toFixed(2)}B`, String(name).toUpperCase()]}
             />
             <Area type="monotone" dataKey="p90" stroke="none" fill="url(#band)" />
             <Area type="monotone" dataKey="p10" stroke="none" fill="oklch(0.18 0.03 250)" />
