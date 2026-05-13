@@ -10,7 +10,7 @@ const items = [
   { to: "/app/scenarios", icon: GitBranch, label: "Scenarios" },
   { to: "/app/drivers", icon: Sliders, label: "Drivers" },
   { to: "/app/lineage", icon: Network, label: "Lineage" },
-  { to: "/app/lineage", icon: ShieldCheck, label: "Governance" },
+  { to: "/app/governance", icon: ShieldCheck, label: "Governance" },
   { to: "/app/connectors", icon: Plug, label: "Connectors" },
   { to: "/app/settings", icon: Settings, label: "Settings" },
 ];

@@ -1,10 +1,10 @@
 import { useApp } from "@/lib/store";
 import { personas } from "@/lib/mock-data";
-import { Bell, ChevronDown, MessageSquareText, User } from "lucide-react";
+import { Bell, ChevronDown, MessageSquareText, Moon, Sun, User } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function TopNav() {
-  const { persona, setPersona, scenario, setScenario, setChatOpen } = useApp();
+  const { persona, setPersona, scenario, setScenario, setChatOpen, theme, toggleTheme } = useApp();
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur-xl">
       <div className="flex items-center gap-3 px-4 md:px-6 h-14">
@@ -51,6 +51,13 @@ export function TopNav() {
             className="hidden sm:flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-teal to-cyan px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-glow-teal hover:opacity-90"
           >
             <MessageSquareText className="h-3.5 w-3.5" /> Ask CashPulse
+          </button>
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="h-8 w-8 grid place-items-center rounded-lg border border-border hover:bg-surface-2/60"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           <button className="h-8 w-8 grid place-items-center rounded-lg border border-border hover:bg-surface-2/60">
             <Bell className="h-4 w-4" />

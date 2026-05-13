@@ -15,6 +15,7 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppScenariosRouteImport } from './routes/app.scenarios'
 import { Route as AppLineageRouteImport } from './routes/app.lineage'
+import { Route as AppGovernanceRouteImport } from './routes/app.governance'
 import { Route as AppForecastRouteImport } from './routes/app.forecast'
 import { Route as AppDriversRouteImport } from './routes/app.drivers'
 import { Route as AppConnectorsRouteImport } from './routes/app.connectors'
@@ -49,6 +50,11 @@ const AppLineageRoute = AppLineageRouteImport.update({
   path: '/lineage',
   getParentRoute: () => AppRoute,
 } as any)
+const AppGovernanceRoute = AppGovernanceRouteImport.update({
+  id: '/governance',
+  path: '/governance',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppForecastRoute = AppForecastRouteImport.update({
   id: '/forecast',
   path: '/forecast',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/app/connectors': typeof AppConnectorsRoute
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/governance': typeof AppGovernanceRoute
   '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
   '/app/settings': typeof AppSettingsRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/app/connectors': typeof AppConnectorsRoute
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/governance': typeof AppGovernanceRoute
   '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
   '/app/settings': typeof AppSettingsRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/app/connectors': typeof AppConnectorsRoute
   '/app/drivers': typeof AppDriversRoute
   '/app/forecast': typeof AppForecastRoute
+  '/app/governance': typeof AppGovernanceRoute
   '/app/lineage': typeof AppLineageRoute
   '/app/scenarios': typeof AppScenariosRoute
   '/app/settings': typeof AppSettingsRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/app/connectors'
     | '/app/drivers'
     | '/app/forecast'
+    | '/app/governance'
     | '/app/lineage'
     | '/app/scenarios'
     | '/app/settings'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/app/connectors'
     | '/app/drivers'
     | '/app/forecast'
+    | '/app/governance'
     | '/app/lineage'
     | '/app/scenarios'
     | '/app/settings'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/app/connectors'
     | '/app/drivers'
     | '/app/forecast'
+    | '/app/governance'
     | '/app/lineage'
     | '/app/scenarios'
     | '/app/settings'
@@ -182,6 +194,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppLineageRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/governance': {
+      id: '/app/governance'
+      path: '/governance'
+      fullPath: '/app/governance'
+      preLoaderRoute: typeof AppGovernanceRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/forecast': {
       id: '/app/forecast'
       path: '/forecast'
@@ -210,6 +229,7 @@ interface AppRouteChildren {
   AppConnectorsRoute: typeof AppConnectorsRoute
   AppDriversRoute: typeof AppDriversRoute
   AppForecastRoute: typeof AppForecastRoute
+  AppGovernanceRoute: typeof AppGovernanceRoute
   AppLineageRoute: typeof AppLineageRoute
   AppScenariosRoute: typeof AppScenariosRoute
   AppSettingsRoute: typeof AppSettingsRoute
@@ -220,6 +240,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppConnectorsRoute: AppConnectorsRoute,
   AppDriversRoute: AppDriversRoute,
   AppForecastRoute: AppForecastRoute,
+  AppGovernanceRoute: AppGovernanceRoute,
   AppLineageRoute: AppLineageRoute,
   AppScenariosRoute: AppScenariosRoute,
   AppSettingsRoute: AppSettingsRoute,
