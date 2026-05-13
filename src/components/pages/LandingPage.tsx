@@ -73,10 +73,11 @@ export function LandingPage() {
         </motion.div>
 
         <motion.div
+          id="preview"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="mt-20 mx-auto max-w-5xl rounded-2xl border border-border glass p-6 shadow-card"
+          className="mt-20 mx-auto max-w-5xl rounded-2xl border border-border glass p-6 shadow-card scroll-mt-24"
         >
           <div className="flex items-center gap-1.5 mb-4">
             <span className="h-2.5 w-2.5 rounded-full bg-destructive/60" />
