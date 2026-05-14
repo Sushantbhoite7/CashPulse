@@ -55,7 +55,7 @@ export function Dashboard() {
         <div>
           <div className="text-xs uppercase tracking-widest text-muted-foreground">{persona} view</div>
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">
-            <span className="text-gradient">Cashflow intelligence</span>, real-time
+            <span className="text-gradient">Cash Intelligence</span>, Real-time
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
             13-week forecast updated 3 minutes ago · Base FY26 scenario · 32 entities
