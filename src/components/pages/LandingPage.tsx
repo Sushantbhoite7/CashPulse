@@ -18,7 +18,7 @@ export function LandingPage() {
           <ThemeToggle />
           <Link
             to="/app"
-            className="text-xs font-semibold px-3 py-1.5 rounded-md border border-border hover:bg-surface-2/60"
+            className="text-xs font-semibold px-4 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors"
           >
             Launch dashboard →
           </Link>
@@ -60,11 +60,11 @@ export function LandingPage() {
         >
           <Link
             to="/app"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-teal to-cyan text-primary-foreground font-semibold shadow-glow-teal hover:opacity-90"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-teal to-cyan text-white font-semibold shadow-glow-teal hover:opacity-90"
           >
             Launch dashboard <ArrowRight className="h-4 w-4" />
           </Link>
-          <button className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-border hover:bg-surface-2/60 font-semibold">
+          <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors font-semibold">
             <PlayCircle className="h-4 w-4" /> Watch demo
           </button>
         </motion.div>
@@ -73,7 +73,7 @@ export function LandingPage() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="mt-20 mx-auto max-w-5xl rounded-2xl border border-border glass p-6 shadow-card"
+          className="mt-20 mx-auto max-w-5xl rounded-2xl border border-border glass p-6 shadow-lg"
         >
           <div className="flex items-center gap-1.5 mb-4">
             <span className="h-2.5 w-2.5 rounded-full bg-destructive/60" />

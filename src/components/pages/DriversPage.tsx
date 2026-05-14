@@ -33,11 +33,11 @@ export function DriversPage() {
       <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
         <Card>
           <CardHeader subtitle="Base FY26" title="Macro & operational" right={
-            <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5">
+            <button className="text-xs px-3 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors inline-flex items-center gap-1.5">
               <Save className="h-3 w-3" /> Save scenario
             </button>
           } />
-          <div className="px-5 pb-5 space-y-5">
+          <div className="space-y-5">
             {drivers.map((d) => (
               <div key={d.id}>
                 <div className="flex items-baseline justify-between text-sm">
@@ -69,7 +69,7 @@ export function DriversPage() {
               </span>
             ) : null
           } />
-          <div className="h-[300px] px-2 pb-4">
+          <div className="h-[300px] -mx-2">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={series} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
                 <defs>
@@ -78,14 +78,14 @@ export function DriversPage() {
                     <stop offset="100%" stopColor="oklch(0.78 0.15 200)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="m" stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-                <YAxis stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
-                <Tooltip contentStyle={{ background: "oklch(0.22 0.035 250)", border: "1px solid oklch(1 0 0 / 10%)", borderRadius: 8, fontSize: 12 }} />
-                <Area type="monotone" dataKey="v" stroke="oklch(0.78 0.15 200)" strokeWidth={2} fill="url(#dgrad)" />
+                <XAxis dataKey="m" stroke="var(--muted-foreground)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
+                <YAxis stroke="var(--muted-foreground)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
+                <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12, color: "var(--foreground)" }} />
+                <Area type="monotone" dataKey="v" stroke="var(--teal)" strokeWidth={2} fill="url(#dgrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="px-5 pb-5 grid grid-cols-3 gap-3 text-center">
+          <div className="grid grid-cols-3 gap-3 text-center mt-4">
             <Stat label="FY FCF" value="$1.84B" />
             <Stat label="vs base" value="−4.2%" tone="warning" />
             <Stat label="Confidence" value="P50" />

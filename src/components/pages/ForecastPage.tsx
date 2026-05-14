@@ -34,7 +34,7 @@ export function ForecastPage() {
 
       <Card>
         <CardHeader subtitle="Monthly · USD millions · P10 / P50 / P90 + board target" title="Free cash flow trajectory" />
-        <div className="h-[360px] px-2 pb-4">
+        <div className="h-[360px] -mx-2">
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={cfoFcf} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
               <defs>
@@ -43,50 +43,48 @@ export function ForecastPage() {
                   <stop offset="100%" stopColor="oklch(0.74 0.16 220)" stopOpacity={0.04} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="month" stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={{ stroke: "oklch(1 0 0 / 8%)" }} />
-              <YAxis stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
-              <Tooltip contentStyle={{ background: "oklch(0.22 0.035 250)", border: "1px solid oklch(1 0 0 / 10%)", borderRadius: 8, fontSize: 12 }} />
+              <XAxis dataKey="month" stroke="var(--muted-foreground)" tick={{ fontSize: 10 }} tickLine={false} axisLine={{ stroke: "var(--border)" }} />
+              <YAxis stroke="var(--muted-foreground)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
+              <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12, color: "var(--foreground)" }} />
               <Area type="monotone" dataKey="p90" stroke="none" fill="url(#band2)" />
-              <Area type="monotone" dataKey="p10" stroke="none" fill="oklch(0.18 0.03 250)" />
-              <Line type="monotone" dataKey="p50" stroke="oklch(0.78 0.15 200)" strokeWidth={2} dot={false} />
-              <ReferenceLine y={0} stroke="oklch(1 0 0 / 10%)" />
-              <Line type="monotone" dataKey="target" stroke="oklch(0.78 0.15 70)" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
+              <Area type="monotone" dataKey="p10" stroke="none" fill="var(--background)" />
+              <Line type="monotone" dataKey="p50" stroke="var(--teal)" strokeWidth={2} dot={false} />
+              <ReferenceLine y={0} stroke="var(--border)" />
+              <Line type="monotone" dataKey="target" stroke="var(--warning)" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
             </ComposedChart>
           </ResponsiveContainer>
         </div>
       </Card>
 
-      <Card glow="teal" className="overflow-hidden">
+      <Card className="relative overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal to-transparent" />
-        <div className="px-5 py-5 flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-teal" />
             <h3 className="text-base font-semibold tracking-tight">AI board commentary</h3>
             <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Claude · grounded</span>
           </div>
           <div className="flex items-center gap-2">
-            <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5"><Copy className="h-3 w-3" /> Copy</button>
-            <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5"><FileDown className="h-3 w-3" /> Export</button>
+            <button className="text-xs px-3 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors inline-flex items-center gap-1.5"><Copy className="h-3 w-3" /> Copy</button>
+            <button className="text-xs px-3 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors inline-flex items-center gap-1.5"><FileDown className="h-3 w-3" /> Export</button>
             <button
               onClick={() => { setText(""); setStreaming(true); }}
-              className="text-xs font-semibold px-3 py-1.5 rounded-md bg-gradient-to-r from-teal to-cyan text-primary-foreground"
+              className="text-xs font-semibold px-4 py-1.5 rounded-full bg-gradient-to-r from-teal to-cyan text-white shadow-glow-teal hover:opacity-90"
             >
               Generate commentary
             </button>
           </div>
         </div>
-        <div className="px-5 pb-5">
-          <div className={`relative rounded-lg border border-border bg-surface/40 p-4 text-sm leading-relaxed min-h-[140px] ${streaming ? "shimmer" : ""}`}>
-            {text || <span className="text-muted-foreground">Click "Generate commentary" to draft Q3 board narrative grounded in current forecast and SHAP attributions.</span>}
-            {streaming && <span className="inline-block w-2 h-4 bg-teal align-middle animate-pulse ml-0.5" />}
-          </div>
+        <div className={`rounded-lg border border-border bg-surface/40 p-4 text-sm leading-relaxed min-h-[140px] ${streaming ? "shimmer" : ""}`}>
+          {text || <span className="text-muted-foreground">Click "Generate commentary" to draft Q3 board narrative grounded in current forecast and SHAP attributions.</span>}
+          {streaming && <span className="inline-block w-2 h-4 bg-teal align-middle animate-pulse ml-0.5" />}
         </div>
       </Card>
 
       <div className="grid lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader subtitle="Base case" title="FY26 segment contribution" />
-          <div className="px-5 pb-5 flex flex-col items-center">
+          <div className="flex flex-col items-center">
             <DonutChart
               data={[
                 { name: "Crop Protection", value: 7800 },
@@ -108,7 +106,7 @@ export function ForecastPage() {
         </Card>
         <Card>
           <CardHeader subtitle="Downside scenario" title="FY26 segment contribution" />
-          <div className="px-5 pb-5 flex flex-col items-center">
+          <div className="flex flex-col items-center">
             <DonutChart
               data={[
                 { name: "Crop Protection", value: 7100 },
@@ -127,7 +125,7 @@ export function ForecastPage() {
               className="mt-3"
             />
           </div>
-          <div className="px-5 pb-5 text-xs text-muted-foreground">
+          <div className="mt-4 text-xs text-muted-foreground">
             Δ vs base: <span className="text-destructive font-semibold">−$180M FCF</span>, primarily LATAM AR delay.
           </div>
         </Card>

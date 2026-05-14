@@ -11,7 +11,7 @@ export function SettingsPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader subtitle="Profile" title="Account" />
-          <div className="px-5 pb-5 space-y-3 text-sm">
+          <div className="space-y-3 text-sm">
             <Row label="Name" value="Sarah Patel" />
             <Row label="Email" value="s.patel@cashpulse.io" />
             <Row label="Role" value="Treasurer" />
@@ -20,7 +20,7 @@ export function SettingsPage() {
         </Card>
         <Card>
           <CardHeader subtitle="Security" title="Access & RBAC" />
-          <div className="px-5 pb-5 space-y-3 text-sm">
+          <div className="space-y-3 text-sm">
             <Row label="MFA" value="Enabled (FIDO2)" tone />
             <Row label="SSO" value="Azure AD" tone />
             <Row label="API keys" value="2 active" />
@@ -29,7 +29,7 @@ export function SettingsPage() {
         </Card>
         <Card>
           <CardHeader subtitle="Notifications" title="Alerts" />
-          <div className="px-5 pb-5 space-y-3 text-sm">
+          <div className="space-y-3 text-sm">
             <Toggle label="Liquidity breach alerts" on />
             <Toggle label="FX move > 2%" on />
             <Toggle label="Scenario approval requests" on />
@@ -38,7 +38,7 @@ export function SettingsPage() {
         </Card>
         <Card>
           <CardHeader subtitle="Tenant" title="Data retention" />
-          <div className="px-5 pb-5 space-y-3 text-sm">
+          <div className="space-y-3 text-sm">
             <Row label="Forecast snapshots" value="90 days" />
             <Row label="Audit log" value="7 years" />
             <Row label="PII handling" value="Tokenized" tone />

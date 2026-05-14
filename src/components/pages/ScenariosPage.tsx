@@ -18,26 +18,26 @@ export function ScenariosPage() {
           <div className="text-xs uppercase tracking-widest text-muted-foreground">Scenarios</div>
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Compare & branch</h1>
         </div>
-        <button className="text-xs font-semibold px-3 py-1.5 rounded-md bg-gradient-to-r from-teal to-cyan text-primary-foreground inline-flex items-center gap-1.5">
+        <button className="text-xs font-semibold px-4 py-1.5 rounded-full bg-gradient-to-r from-teal to-cyan text-white shadow-glow-teal hover:opacity-90 inline-flex items-center gap-1.5">
           <Plus className="h-3.5 w-3.5" /> New scenario
         </button>
       </div>
 
       <Card>
         <CardHeader subtitle="3-way comparison · USD millions FCF" title="Segment-level waterfall" right={
-          <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5">
+          <button className="text-xs px-3 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors inline-flex items-center gap-1.5">
             <Share2 className="h-3 w-3" /> Share with CFO
           </button>
         } />
-        <div className="h-[320px] px-2 pb-4">
+        <div className="h-[320px] -mx-2">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={compare} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
-              <XAxis dataKey="segment" stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
-              <YAxis stroke="oklch(0.7 0.02 250)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
-              <Tooltip contentStyle={{ background: "oklch(0.22 0.035 250)", border: "1px solid oklch(1 0 0 / 10%)", borderRadius: 8, fontSize: 12 }} />
-              <Bar dataKey="base" fill="oklch(0.78 0.15 200)" radius={[4,4,0,0]} />
-              <Bar dataKey="downside" fill="oklch(0.78 0.15 70)" radius={[4,4,0,0]} />
-              <Bar dataKey="stress" fill="oklch(0.66 0.22 25)" radius={[4,4,0,0]} />
+              <XAxis dataKey="segment" stroke="var(--muted-foreground)" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+              <YAxis stroke="var(--muted-foreground)" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}M`} width={50} />
+              <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12, color: "var(--foreground)" }} />
+              <Bar dataKey="base" fill="var(--teal)" radius={[4,4,0,0]} />
+              <Bar dataKey="downside" fill="var(--warning)" radius={[4,4,0,0]} />
+              <Bar dataKey="stress" fill="var(--destructive)" radius={[4,4,0,0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -45,7 +45,7 @@ export function ScenariosPage() {
 
       <Card>
         <CardHeader subtitle="Saved scenarios" title="Version history" />
-        <div className="px-2 pb-3">
+        <div className="-mx-2">
           <Table>
             <TableHead>
               <TableRow>
@@ -66,7 +66,7 @@ export function ScenariosPage() {
                     <TableCell className="tabular-nums">{s.date}</TableCell>
                     <TableCell><Badge color={badgeColor} size="sm">{s.status}</Badge></TableCell>
                     <TableCell className="text-right">
-                      <button className="text-xs px-2.5 py-1 rounded-md border border-border hover:bg-surface-2/60 inline-flex items-center gap-1.5">
+                      <button className="text-xs px-3 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors inline-flex items-center gap-1.5">
                         <GitBranch className="h-3 w-3" /> Branch
                       </button>
                     </TableCell>

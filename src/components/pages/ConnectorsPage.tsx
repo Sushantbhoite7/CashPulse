@@ -1,6 +1,6 @@
-import { Card, CardHeader } from "@/components/dashboard/Primitives";
+import { Card } from "@/components/dashboard/Primitives";
 import { connectors } from "@/lib/mock-data";
-import { CheckCircle2, Clock, Plus, UploadCloud } from "lucide-react";
+import { Plus, UploadCloud } from "lucide-react";
 import { Tracker, Badge } from "@tremor/react";
 import { useMemo } from "react";
 
@@ -26,9 +26,9 @@ export function ConnectorsPage() {
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mt-1">Data sources</h1>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {connectors.map((c) => (
-          <Card key={c.name} className="p-5">
+          <Card key={c.name}>
             <div className="flex items-start justify-between">
               <div>
                 <div className="text-sm font-semibold">{c.name}</div>
@@ -49,11 +49,11 @@ export function ConnectorsPage() {
               </div>
             </div>
             <Tracker data={trackerDataMap[c.name]} className="mt-3" />
-            <button className="mt-4 w-full text-xs px-3 py-1.5 rounded-md border border-border hover:bg-surface-2/60">Test connection</button>
+            <button className="mt-4 w-full text-xs px-3 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors">Test connection</button>
           </Card>
         ))}
 
-        <Card className="p-5 border-dashed">
+        <Card className="border-dashed">
           <div className="flex items-center gap-2">
             <Plus className="h-4 w-4 text-teal" />
             <div className="text-sm font-semibold">Add connector</div>

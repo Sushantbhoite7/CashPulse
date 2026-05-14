@@ -38,7 +38,7 @@ export function Sidebar() {
               className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
                 active
                   ? "bg-teal/15 text-foreground border border-teal/25"
-                  : "text-muted-foreground hover:text-foreground hover:bg-surface-2/60"
+                  : "text-muted-foreground hover:text-foreground hover:bg-surface-2"
               }`}
             >
               <Icon className={`h-4 w-4 ${active ? "text-teal" : ""}`} />

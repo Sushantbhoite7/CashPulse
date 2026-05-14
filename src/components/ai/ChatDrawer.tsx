@@ -99,7 +99,7 @@ export function ChatDrawer() {
                   <button
                     key={s}
                     onClick={() => send(s)}
-                    className="text-[11px] px-2.5 py-1.5 rounded-full border border-border bg-surface/60 hover:bg-surface-2/80 hover:border-teal/40"
+                    className="text-[11px] px-2.5 py-1.5 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors"
                   >
                     {s}
                   </button>
@@ -119,7 +119,7 @@ export function ChatDrawer() {
                   placeholder="Ask CashPulse anything…"
                   className="flex-1 bg-transparent outline-none text-sm placeholder:text-muted-foreground"
                 />
-                <button type="submit" className="h-7 w-7 grid place-items-center rounded-md bg-gradient-to-r from-teal to-cyan text-primary-foreground">
+                <button type="submit" className="h-7 w-7 grid place-items-center rounded-md bg-gradient-to-r from-teal to-cyan text-white">
                   <Send className="h-3.5 w-3.5" />
                 </button>
               </form>

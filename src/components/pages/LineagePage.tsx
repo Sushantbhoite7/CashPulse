@@ -26,7 +26,7 @@ export function LineagePage() {
 
       <Card>
         <CardHeader subtitle="End-to-end lineage" title="From source system to forecast cell" />
-        <div className="px-5 pb-6 overflow-x-auto">
+        <div className="overflow-x-auto">
           <div className="flex items-stretch gap-2 min-w-max">
             {lineage.map((node, i) => (
               <div key={node.name} className="flex items-center gap-2">
@@ -45,23 +45,23 @@ export function LineagePage() {
       <div className="grid lg:grid-cols-[1fr_2fr] gap-6">
         <Card>
           <CardHeader subtitle="Active model" title="Production model card" />
-          <div className="px-5 pb-5 space-y-3 text-sm">
+          <div className="space-y-3 text-sm">
             <Field label="Type" value="LightGBM Ensemble" />
             <Field label="Last trained" value="2026-05-12 14:30 UTC" />
             <Field label="Backtest WAPE" value="4.2%" tone="success" />
             <ProgressBar value={42} color="teal" className="mt-1" />
             <Field label="Backtest MAPE" value="6.1%" />
             <Field label="Approved by" value="R. Chen (Head of FP&A)" />
-            <Field label="Status" value="Production ✓" tone="success" />
-            <button className="w-full mt-2 text-xs px-3 py-2 rounded-md border border-border hover:bg-surface-2/60">
-              View full backtest report →
+            <Field label="Status" value="Production" tone="success" />
+            <button className="w-full mt-2 text-xs px-3 py-2 rounded-full bg-surface-2/60 hover:bg-surface-2 transition-colors">
+              View full backtest report
             </button>
           </div>
         </Card>
 
-        <Card>
+        <Card className="overflow-hidden">
           <CardHeader subtitle="Last 50 actions" title="Audit log" />
-          <div className="px-2 pb-3">
+          <div className="-mx-2">
             <Table>
               <TableHead>
                 <TableRow>

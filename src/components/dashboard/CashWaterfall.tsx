@@ -18,7 +18,7 @@ export function CashWaterfall() {
           </div>
         }
       />
-      <div className="h-[340px] px-2 pb-4">
+      <div className="h-[400px] -mx-2">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={cashForecast} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
             <defs>
@@ -29,14 +29,14 @@ export function CashWaterfall() {
             </defs>
             <XAxis
               dataKey="date"
-              stroke="oklch(0.7 0.02 250)"
+              stroke="var(--muted-foreground)"
               tick={{ fontSize: 10 }}
               interval={9}
               tickLine={false}
-              axisLine={{ stroke: "oklch(1 0 0 / 8%)" }}
+              axisLine={{ stroke: "var(--border)" }}
             />
             <YAxis
-              stroke="oklch(0.7 0.02 250)"
+              stroke="var(--muted-foreground)"
               tick={{ fontSize: 10 }}
               tickFormatter={(v) => `$${(v / 1000).toFixed(1)}B`}
               tickLine={false}
@@ -45,22 +45,23 @@ export function CashWaterfall() {
             />
             <Tooltip
               contentStyle={{
-                background: "oklch(0.22 0.035 250)",
-                border: "1px solid oklch(1 0 0 / 10%)",
+                background: "var(--card)",
+                border: "1px solid var(--border)",
                 borderRadius: 8,
                 fontSize: 12,
+                color: "var(--foreground)",
               }}
-              labelStyle={{ color: "oklch(0.7 0.02 250)" }}
+              labelStyle={{ color: "var(--muted-foreground)" }}
               formatter={(v: any, name: any) => [`$${(Number(v) / 1000).toFixed(2)}B`, String(name).toUpperCase()]}
             />
             <Area type="monotone" dataKey="p90" stroke="none" fill="url(#band)" />
-            <Area type="monotone" dataKey="p10" stroke="none" fill="oklch(0.18 0.03 250)" />
-            <Line type="monotone" dataKey="p50" stroke="oklch(0.78 0.15 200)" strokeWidth={2} dot={false} />
+            <Area type="monotone" dataKey="p10" stroke="none" fill="var(--background)" />
+            <Line type="monotone" dataKey="p50" stroke="var(--teal)" strokeWidth={2} dot={false} />
             <ReferenceLine
               y={minLiquidity}
-              stroke="oklch(0.78 0.15 70)"
+              stroke="var(--warning)"
               strokeDasharray="4 4"
-              label={{ value: "Min liquidity $1.7B", position: "insideTopRight", fill: "oklch(0.78 0.15 70)", fontSize: 10 }}
+              label={{ value: "Min liquidity $1.7B", position: "insideTopRight", fill: "var(--warning)", fontSize: 10 }}
             />
           </ComposedChart>
         </ResponsiveContainer>

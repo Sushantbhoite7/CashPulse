@@ -6,9 +6,9 @@ import {
 
 export function FXExposureTable() {
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <CardHeader subtitle="Net positions · USD millions" title="FX exposure" />
-      <div className="px-2 pb-3">
+      <div className="-mx-2">
         <Table>
           <TableHead>
             <TableRow>

@@ -44,7 +44,6 @@
   --color-surface-2: var(--surface-2);
 
   --shadow-glow-teal: 0 0 32px -4px var(--teal);
-  --shadow-card: 0 1px 0 0 oklch(1 0 0 / 4%) inset, 0 8px 24px -8px oklch(0 0 0 / 50%);
 }
 
 :root {
@@ -52,11 +51,11 @@
   /* Dark by default — enterprise treasury */
   --background: oklch(0.18 0.03 250);
   --foreground: oklch(0.97 0.01 240);
-  --surface: oklch(0.22 0.035 250);
-  --surface-2: oklch(0.26 0.035 250);
-  --card: oklch(0.22 0.035 250);
+  --surface: oklch(0.21 0.025 250);
+  --surface-2: oklch(0.30 0.03 250);
+  --card: oklch(0.23 0.025 250);
   --card-foreground: oklch(0.97 0.01 240);
-  --popover: oklch(0.22 0.035 250);
+  --popover: oklch(0.23 0.025 250);
   --popover-foreground: oklch(0.97 0.01 240);
   --primary: oklch(0.78 0.15 200);
   --primary-foreground: oklch(0.15 0.03 250);
@@ -72,28 +71,37 @@
   --warning: oklch(0.78 0.15 70);
   --teal: oklch(0.78 0.15 200);
   --cyan: oklch(0.74 0.16 220);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
+  --border: oklch(1 0 0 / 14%);
+  --input: oklch(1 0 0 / 18%);
   --ring: oklch(0.78 0.15 200);
 }
 
 .light {
-  --background: oklch(0.985 0.005 240);
-  --foreground: oklch(0.15 0.03 250);
+  --background: oklch(0.98 0.003 240);
+  --foreground: oklch(0.14 0.02 260);
   --surface: oklch(1 0 0);
-  --surface-2: oklch(0.97 0.005 240);
+  --surface-2: oklch(0.965 0.005 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.03 250);
+  --card-foreground: oklch(0.14 0.02 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.03 250);
-  --primary: oklch(0.55 0.16 220);
+  --popover-foreground: oklch(0.14 0.02 260);
+  --primary: oklch(0.48 0.14 220);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.95 0.01 240);
-  --muted: oklch(0.95 0.01 240);
-  --muted-foreground: oklch(0.45 0.02 250);
-  --accent: oklch(0.55 0.16 220);
-  --border: oklch(0.15 0.03 250 / 10%);
-  --input: oklch(0.15 0.03 250 / 12%);
+  --secondary: oklch(0.96 0.005 250);
+  --secondary-foreground: oklch(0.14 0.02 260);
+  --muted: oklch(0.955 0.005 250);
+  --muted-foreground: oklch(0.42 0.02 260);
+  --accent: oklch(0.48 0.14 220);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --success: oklch(0.52 0.14 160);
+  --warning: oklch(0.62 0.16 70);
+  --teal: oklch(0.48 0.14 200);
+  --cyan: oklch(0.50 0.14 220);
+  --border: oklch(0.90 0.005 250);
+  --input: oklch(0.90 0.005 250);
+  --ring: oklch(0.48 0.14 200);
 }
 
 @layer base {
@@ -144,8 +152,28 @@
   animation: shimmer 2s linear infinite;
 }
 
-/* Tremor dark mode overrides */
-.dark [class*="tremor"] {
+/* Tremor shape & color overrides */
+.tremor-BadgeDelta-root,
+.tremor-Badge-root {
+  border-radius: 9999px !important;
+  opacity: 1 !important;
+  --tw-bg-opacity: 0.15 !important;
+  --tw-ring-opacity: 0 !important;
+  font-weight: 600;
+}
+.tremor-Callout-root {
+  border-radius: var(--radius-lg) !important;
+  background-color: var(--surface) !important;
+}
+.tremor-BarList-bar {
+  border-radius: 9999px;
+}
+.tremor-Tracker-root > div {
+  border-radius: 9999px;
+}
+
+/* Tremor integration — map our design tokens into Tremor's CSS vars */
+[class*="tremor"] {
   --tremor-background-default: var(--card);
   --tremor-background-muted: var(--surface);
   --tremor-background-subtle: var(--surface-2);
@@ -154,37 +182,45 @@
   --tremor-content-emphasis: var(--foreground);
   --tremor-content-strong: var(--foreground);
   --tremor-content-subtle: var(--muted-foreground);
+  --tremor-content-inverted: var(--background);
+  --tremor-brand-DEFAULT: var(--teal);
+  --tremor-brand-muted: color-mix(in oklab, var(--teal) 15%, transparent);
+  --tremor-brand-emphasis: var(--cyan);
 }
-.dark .tremor-Card-root {
+.tremor-Card-root {
   background-color: var(--card);
   border-color: var(--border);
-  box-shadow: var(--shadow-card);
   --tw-ring-color: transparent;
+  box-shadow: none;
 }
-.dark .tremor-TableHeaderCell-root {
+.tremor-TableHeaderCell-root {
   color: var(--muted-foreground);
 }
-.dark .tremor-TableCell-root {
+.tremor-TableCell-root {
   color: var(--foreground);
 }
-.dark .tremor-TableRow-root {
+.tremor-TableRow-root {
   border-color: var(--border);
 }
-.dark .tremor-Metric-root {
+.tremor-Metric-root {
   color: var(--foreground);
 }
-.dark .tremor-Text-root {
+.tremor-Text-root {
   color: var(--muted-foreground);
 }
-.dark .tremor-Callout-root {
+.tremor-Badge-root {
   border-color: var(--border);
 }
-.dark .tremor-BarList-bar {
-  background-color: var(--teal);
+
+/* Light mode utility adjustments */
+.light .gradient-mesh {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in oklab, var(--teal) 8%, transparent), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 110%, color-mix(in oklab, var(--cyan) 6%, transparent), transparent 60%),
+    var(--background);
 }
-.dark .tremor-Tracker-root .bg-emerald-500 {
-  background-color: var(--success);
-}
-.dark .tremor-Badge-root {
-  border-color: var(--border);
+.light .glass {
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
 }

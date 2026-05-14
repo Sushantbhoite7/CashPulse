@@ -16,7 +16,7 @@ export function VarianceChart() {
   return (
     <Card>
       <CardHeader subtitle="SHAP attribution · USD millions" title="Variance vs. prior forecast" />
-      <div className="px-5 pb-5 space-y-4">
+      <div className="space-y-4">
         <div>
           <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Positive drivers</p>
           <BarList data={positive} color="cyan" />

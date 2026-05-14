@@ -8,40 +8,40 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const personaKpis: Record<string, any[]> = {
   treasurer: [
-    { label: "Opening balance", value: "$2.4B", delta: 2.3, status: "success", caption: "vs prior week", tone: "teal" },
-    { label: "Forecasted closing 13W", value: "$1.87B", delta: -4.1, status: "warning", caption: "P50 estimate", tone: "warning" },
-    { label: "Liquidity headroom", value: "$340M", status: "success", caption: "Above $1.7B minimum", tone: "success" },
-    { label: "FX exposure (net)", value: "−$128M", delta: -3.2, status: "warning", caption: "USD/BRL dominant", tone: "warning" },
+    { label: "Opening balance", value: "$2.4B", delta: 2.3, status: "success", caption: "vs prior week" },
+    { label: "Forecasted closing 13W", value: "$1.87B", delta: -4.1, status: "warning", caption: "P50 estimate" },
+    { label: "Liquidity headroom", value: "$340M", status: "success", caption: "Above $1.7B minimum" },
+    { label: "FX exposure (net)", value: "−$128M", delta: -3.2, status: "warning", caption: "USD/BRL dominant" },
   ],
   cfo: [
-    { label: "FCF vs guidance", value: "+$42M", delta: 8.1, status: "success", caption: "Q3 actuals", tone: "success" },
-    { label: "Revenue forecast FY", value: "$14.2B", delta: 1.4, status: "success", caption: "vs board target", tone: "teal" },
-    { label: "EBITDA margin", value: "22.4%", delta: 0.6, status: "success", caption: "TTM", tone: "teal" },
-    { label: "Covenant headroom", value: "2.8×", status: "success", caption: "Min 2.0×", tone: "success" },
+    { label: "FCF vs guidance", value: "+$42M", delta: 8.1, status: "success", caption: "Q3 actuals" },
+    { label: "Revenue forecast FY", value: "$14.2B", delta: 1.4, status: "success", caption: "vs board target" },
+    { label: "EBITDA margin", value: "22.4%", delta: 0.6, status: "success", caption: "TTM" },
+    { label: "Covenant headroom", value: "2.8×", status: "success", caption: "Min 2.0×" },
   ],
   fpa: [
-    { label: "Active scenarios", value: "12", caption: "3 in review", tone: "teal" },
-    { label: "Driver inputs", value: "84", caption: "Last refresh 9 min", tone: "teal" },
-    { label: "Forecast WAPE", value: "4.2%", delta: -0.3, status: "success", tone: "success" },
-    { label: "Override count", value: "27", delta: 12, status: "warning", caption: "30-day", tone: "warning" },
+    { label: "Active scenarios", value: "12", caption: "3 in review" },
+    { label: "Driver inputs", value: "84", caption: "Last refresh 9 min" },
+    { label: "Forecast WAPE", value: "4.2%", delta: -0.3, status: "success" },
+    { label: "Override count", value: "27", delta: 12, status: "warning", caption: "30-day" },
   ],
   controller: [
-    { label: "Close progress", value: "78%", caption: "Day 4 of 5", tone: "teal" },
-    { label: "Open journal items", value: "142", delta: -18, status: "success", tone: "success" },
-    { label: "AR DSO", value: "61 days", delta: 2.1, status: "warning", tone: "warning" },
-    { label: "Reconciliation breaks", value: "9", status: "warning", tone: "warning" },
+    { label: "Close progress", value: "78%", caption: "Day 4 of 5" },
+    { label: "Open journal items", value: "142", delta: -18, status: "success" },
+    { label: "AR DSO", value: "61 days", delta: 2.1, status: "warning" },
+    { label: "Reconciliation breaks", value: "9", status: "warning" },
   ],
   regional: [
-    { label: "LATAM cash", value: "$612M", delta: -2.1, status: "warning", tone: "warning" },
-    { label: "EMEA cash", value: "$884M", delta: 1.4, status: "success", tone: "teal" },
-    { label: "APAC cash", value: "$402M", delta: 0.6, status: "success", tone: "teal" },
-    { label: "NAM cash", value: "$502M", delta: 3.2, status: "success", tone: "success" },
+    { label: "LATAM cash", value: "$612M", delta: -2.1, status: "warning" },
+    { label: "EMEA cash", value: "$884M", delta: 1.4, status: "success" },
+    { label: "APAC cash", value: "$402M", delta: 0.6, status: "success" },
+    { label: "NAM cash", value: "$502M", delta: 3.2, status: "success" },
   ],
   it: [
-    { label: "Pipeline uptime", value: "99.98%", status: "success", tone: "success" },
-    { label: "Active connectors", value: "5 / 6", caption: "FRED pending", tone: "teal" },
-    { label: "Daily rows ingested", value: "118M", delta: 4.2, status: "success", tone: "teal" },
-    { label: "Model drift score", value: "0.07", status: "success", caption: "Threshold 0.20", tone: "success" },
+    { label: "Pipeline uptime", value: "99.98%", status: "success" },
+    { label: "Active connectors", value: "5 / 6", caption: "FRED pending" },
+    { label: "Daily rows ingested", value: "118M", delta: 4.2, status: "success" },
+    { label: "Model drift score", value: "0.07", status: "success", caption: "Threshold 0.20" },
   ],
 };
 
@@ -78,7 +78,7 @@ export function Dashboard() {
         >
           <KPIRow items={kpis} />
           <CashWaterfall />
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-[7fr_5fr]">
             <FXExposureTable />
             <VarianceChart />
           </div>
