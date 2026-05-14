@@ -3,7 +3,7 @@ import { cfoFcf } from "@/lib/mock-data";
 import { Area, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Sparkles, Copy, FileDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DonutChart, Legend } from "@tremor/react";
+import { DonutChart, Legend } from "@/components/dashboard/Primitives";
 
 const narrative =
   "Q3 free cash flow came in $42M above plan, driven primarily by stronger-than-expected AR collections in LATAM [+$28M], linked to corn price strength. This was partially offset by elevated active-ingredient costs in Crop Protection [-$11M], correlated with the natural gas spike in mid-August. Working capital normalized within target bands across EMEA and APAC. Looking forward, the base case for FY26 holds revenue at $14.2B with EBITDA margin at 22.4%, leaving covenant headroom comfortably at 2.8×.";

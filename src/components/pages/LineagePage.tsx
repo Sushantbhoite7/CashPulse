@@ -1,10 +1,14 @@
-import { Card, CardHeader } from "@/components/dashboard/Primitives";
+import { Card, CardHeader, Badge, ProgressBar } from "@/components/dashboard/Primitives";
 import { auditLog } from "@/lib/mock-data";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import {
-  Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell,
-  Badge, ProgressBar,
-} from "@tremor/react";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const lineage = [
   { name: "SAP S/4HANA", meta: "2.4M rows · 3 min ago", quality: 99.7 },
@@ -63,18 +67,18 @@ export function LineagePage() {
           <CardHeader subtitle="Last 50 actions" title="Audit log" />
           <div className="-mx-2">
             <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeaderCell>Timestamp</TableHeaderCell>
-                  <TableHeaderCell>User</TableHeaderCell>
-                  <TableHeaderCell>Action</TableHeaderCell>
-                  <TableHeaderCell>Entity</TableHeaderCell>
-                  <TableHeaderCell>Details</TableHeaderCell>
+              <TableHeader>
+                <TableRow className="border-border hover:bg-transparent">
+                  <TableHead className="text-muted-foreground text-xs font-medium">Timestamp</TableHead>
+                  <TableHead className="text-muted-foreground text-xs font-medium">User</TableHead>
+                  <TableHead className="text-muted-foreground text-xs font-medium">Action</TableHead>
+                  <TableHead className="text-muted-foreground text-xs font-medium">Entity</TableHead>
+                  <TableHead className="text-muted-foreground text-xs font-medium">Details</TableHead>
                 </TableRow>
-              </TableHead>
+              </TableHeader>
               <TableBody>
                 {auditLog.map((r, i) => (
-                  <TableRow key={i}>
+                  <TableRow key={i} className="border-border">
                     <TableCell className="tabular-nums text-xs">{r.ts}</TableCell>
                     <TableCell className="text-xs">{r.user}</TableCell>
                     <TableCell><Badge color="cyan" size="sm">{r.action}</Badge></TableCell>

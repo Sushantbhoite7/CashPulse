@@ -1,6 +1,6 @@
 import { alerts } from "@/lib/mock-data";
 import { AlertTriangle, Info } from "lucide-react";
-import { Callout } from "@tremor/react";
+import { Callout } from "./Primitives";
 
 export function AlertPanel() {
   return (

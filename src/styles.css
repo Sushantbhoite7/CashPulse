@@ -1,6 +1,6 @@
 @import "tailwindcss" source(none);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 @source "../src";
-@source "../node_modules/@tremor/react/dist";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -150,66 +150,6 @@
   background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--teal) 20%, transparent), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s linear infinite;
-}
-
-/* Tremor shape & color overrides */
-.tremor-BadgeDelta-root,
-.tremor-Badge-root {
-  border-radius: 9999px !important;
-  opacity: 1 !important;
-  --tw-bg-opacity: 0.15 !important;
-  --tw-ring-opacity: 0 !important;
-  font-weight: 600;
-}
-.tremor-Callout-root {
-  border-radius: var(--radius-lg) !important;
-  background-color: var(--surface) !important;
-}
-.tremor-BarList-bar {
-  border-radius: 9999px;
-}
-.tremor-Tracker-root > div {
-  border-radius: 9999px;
-}
-
-/* Tremor integration — map our design tokens into Tremor's CSS vars */
-[class*="tremor"] {
-  --tremor-background-default: var(--card);
-  --tremor-background-muted: var(--surface);
-  --tremor-background-subtle: var(--surface-2);
-  --tremor-border-default: var(--border);
-  --tremor-content-default: var(--foreground);
-  --tremor-content-emphasis: var(--foreground);
-  --tremor-content-strong: var(--foreground);
-  --tremor-content-subtle: var(--muted-foreground);
-  --tremor-content-inverted: var(--background);
-  --tremor-brand-DEFAULT: var(--teal);
-  --tremor-brand-muted: color-mix(in oklab, var(--teal) 15%, transparent);
-  --tremor-brand-emphasis: var(--cyan);
-}
-.tremor-Card-root {
-  background-color: var(--card);
-  border-color: var(--border);
-  --tw-ring-color: transparent;
-  box-shadow: none;
-}
-.tremor-TableHeaderCell-root {
-  color: var(--muted-foreground);
-}
-.tremor-TableCell-root {
-  color: var(--foreground);
-}
-.tremor-TableRow-root {
-  border-color: var(--border);
-}
-.tremor-Metric-root {
-  color: var(--foreground);
-}
-.tremor-Text-root {
-  color: var(--muted-foreground);
-}
-.tremor-Badge-root {
-  border-color: var(--border);
 }
 
 /* Light mode utility adjustments */

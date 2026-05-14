@@ -1,6 +1,5 @@
-import { Card, CardHeader } from "./Primitives";
+import { Card, CardHeader, BarList } from "./Primitives";
 import { variance } from "@/lib/mock-data";
-import { BarList } from "@tremor/react";
 
 export function VarianceChart() {
   const sorted = [...variance].sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
