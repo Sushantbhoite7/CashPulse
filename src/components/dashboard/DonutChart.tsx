@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 
 interface DonutChartProps {
   data: Array<{ name: string; value: number }>;
-  category: string;
-  index: string;
+  category?: string;
+  index?: string;
   colors?: string[];
   className?: string;
   valueFormatter?: (value: number) => string;
@@ -25,6 +25,10 @@ export function DonutChart({
   colors = ["cyan", "violet", "slate"],
   className,
   valueFormatter = (v) => v.toString(),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  category: _category,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  index: _index,
 }: DonutChartProps) {
   const resolvedColors = colors.map((c) => colorMap[c] || c);
 
