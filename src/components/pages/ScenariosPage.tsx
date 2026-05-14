@@ -1,8 +1,15 @@
-import { Card, CardHeader } from "@/components/dashboard/Primitives";
+import { Card, CardHeader, Badge } from "@/components/dashboard/Primitives";
 import { scenarios } from "@/lib/mock-data";
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { GitBranch, Plus, Share2 } from "lucide-react";
-import { Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell, Badge } from "@tremor/react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const compare = [
   { segment: "Crop Protection", base: 7800, downside: 7100, stress: 6700 },
@@ -47,20 +54,20 @@ export function ScenariosPage() {
         <CardHeader subtitle="Saved scenarios" title="Version history" />
         <div className="-mx-2">
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableHeaderCell>Name</TableHeaderCell>
-                <TableHeaderCell>Author</TableHeaderCell>
-                <TableHeaderCell>Date</TableHeaderCell>
-                <TableHeaderCell>Status</TableHeaderCell>
-                <TableHeaderCell className="text-right">Actions</TableHeaderCell>
+            <TableHeader>
+              <TableRow className="border-border hover:bg-transparent">
+                <TableHead className="text-muted-foreground text-xs font-medium">Name</TableHead>
+                <TableHead className="text-muted-foreground text-xs font-medium">Author</TableHead>
+                <TableHead className="text-muted-foreground text-xs font-medium">Date</TableHead>
+                <TableHead className="text-muted-foreground text-xs font-medium">Status</TableHead>
+                <TableHead className="text-right text-muted-foreground text-xs font-medium">Actions</TableHead>
               </TableRow>
-            </TableHead>
+            </TableHeader>
             <TableBody>
               {scenarios.map((s) => {
                 const badgeColor = s.status === "Approved" ? "emerald" : s.status === "Draft" ? "amber" : "gray";
                 return (
-                  <TableRow key={s.name}>
+                  <TableRow key={s.name} className="border-border">
                     <TableCell className="font-medium">{s.name}</TableCell>
                     <TableCell>{s.author}</TableCell>
                     <TableCell className="tabular-nums">{s.date}</TableCell>

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Plug, Sparkles, ShieldCheck, PlayCircle } from "lucide-react";
+import { ArrowRight, Plug, Sparkles, ShieldCheck, PlayCircle, Lock, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -144,10 +144,10 @@ export function LandingPage() {
 
       <footer className="border-t border-border px-6 md:px-10 py-6 text-[11px] text-muted-foreground flex flex-wrap gap-3 justify-between">
         <span>© 2026 CashPulse</span>
-        <span className="flex items-center gap-3">
-          <span>🔒 SOC2 Type II</span>
-          <span>🔒 AES-256</span>
-          <span>🔒 TLS 1.3</span>
+        <span className="flex items-center gap-4">
+          <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-teal" /> SOC2 Type II</span>
+          <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-teal" /> AES-256</span>
+          <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-teal" /> TLS 1.3</span>
         </span>
       </footer>
     </div>

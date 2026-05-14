@@ -1,15 +1,14 @@
-import { Card } from "@/components/dashboard/Primitives";
+import { Card, Badge, Tracker } from "@/components/dashboard/Primitives";
 import { connectors } from "@/lib/mock-data";
 import { Plus, UploadCloud } from "lucide-react";
-import { Tracker, Badge } from "@tremor/react";
 import { useMemo } from "react";
 
-function generateTrackerData(uptime: number) {
+function generateTrackerData(uptime: number): Array<{ color: "emerald" | "red"; tooltip: string }> {
   const seed = uptime * 100;
   return Array.from({ length: 30 }, (_, i) => {
     const hash = Math.sin(seed + i * 7.3) * 10000;
     const ok = (hash - Math.floor(hash)) > (uptime < 100 ? 0.05 : 0.005);
-    return { color: ok ? "emerald" : "red", tooltip: `Day ${i + 1}` } as const;
+    return { color: ok ? "emerald" : "red", tooltip: `Day ${i + 1}` };
   });
 }
 
